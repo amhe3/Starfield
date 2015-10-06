@@ -1,19 +1,27 @@
-
+Particle[] galaxy;
 
 void setup()
 {
 	size(400, 400);
-	Particle[] galaxy = new Particle[100];
+	galaxy = new Particle[300];
+	for(int i = 0; i < galaxy.length; i++)
+	{
+		galaxy[i] = new NormalParticle();
+	}
+	galaxy[0] = new OddballParticle();
+	//galaxy[] = new JumboParticle();
 }
 void draw()
 {
-	Particle[] galaxy = new NormalParticle;
-	Particle[] galaxy = new OddballParticle;
-	Particle[] galaxy = new JumboParticle;
+	for(int i = 0; i < galaxy.length; i++)
+	{
+		galaxy[i].move;
+		galaxy[i].show;
+	}
 }
-class NormalParticle
+class NormalParticle implements Particle
 {
-	int colors;
+	int colors, size;
 	double x, y, angle, speed;
 	NormalParticle()
 	{
@@ -22,24 +30,54 @@ class NormalParticle
 		colors = color((int)(Math.random()*225), (int)(Math.random()*225), (int)(Math.random()*225));
 		angle = 100;
 		speed = 1;
+		size = 5;
 	}
-	void move()
+	public void move()
 	{
-		x = cos(angle)*speed+x;
-		y = cos(angle)*speed+y;
+		x = Math.cos(angle)*speed+x;
+		y = Math.sin(angle)*speed+y;
+	}
+	public void show()
+	{
+		fill(colors);
+		ellipse((float)x, (float)y, size, size);
 	}
 	
 }
 interface Particle
 {
-	//your code here
+	public void show;
+	public void move;
 }
 class OddballParticle implements Particle
 {
-	//your code here
+	int colors, size;
+	double x, y, angle, speed;
+	OddballParticle()
+	{
+		x = 300;
+		y = 300;
+		angle = 150;
+		speed = 5;
+		colors = color(0, 0, 0);
+		size = 7;
+	}
+	public void move()
+	{
+		x = Math.cos(angle)*speed+x;
+		y = Math.sin(angle)*speed+y;
+	}
+	public void show()
+	{
+		fill(colors);
+		rect((float)x-3, (float)y-3, size, size);
+	}
 }
-class JumboParticle //uses inheritance
+class JumboParticle extends NormalParticle
 {
-	//your code here
+	JumboParticle()
+	{
+		size = 10;
+	}
 }
 
