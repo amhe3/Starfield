@@ -2,21 +2,23 @@ Particle[] galaxy;
 
 void setup()
 {
+	background(0, 0, 0);
 	size(400, 400);
 	galaxy = new Particle[300];
-	for(int i = 0; i < galaxy.length; i++)
+	for(int i = 2; i < galaxy.length; i++)
 	{
 		galaxy[i] = new NormalParticle();
 	}
 	galaxy[0] = new OddballParticle();
-	//galaxy[] = new JumboParticle();
+	galaxy[1] = new JumboParticle();
 }
 void draw()
 {
+	background(0, 0, 0);
 	for(int i = 0; i < galaxy.length; i++)
 	{
-		galaxy[i].move;
-		galaxy[i].show;
+		galaxy[i].move();
+		galaxy[i].show();
 	}
 }
 class NormalParticle implements Particle
@@ -28,9 +30,17 @@ class NormalParticle implements Particle
 		x = 200;
 		y = 200;
 		colors = color((int)(Math.random()*225), (int)(Math.random()*225), (int)(Math.random()*225));
-		angle = 100;
-		speed = 1;
-		size = 5;
+		angle = Math.random()*360;
+		speed = Math.random()*3+1;
+		//size = 5;
+	}
+	void wrap()
+	{
+		if(x == 300 || x == 300 || y == 300 || y == 300)
+		{
+			x = 200;
+			y = 200;
+		}
 	}
 	public void move()
 	{
@@ -40,14 +50,14 @@ class NormalParticle implements Particle
 	public void show()
 	{
 		fill(colors);
-		ellipse((float)x, (float)y, size, size);
+		ellipse((float)x, (float)y, 5, 5);
 	}
 	
 }
 interface Particle
 {
-	public void show;
-	public void move;
+	public void move();
+	public void show();
 }
 class OddballParticle implements Particle
 {
@@ -55,12 +65,12 @@ class OddballParticle implements Particle
 	double x, y, angle, speed;
 	OddballParticle()
 	{
-		x = 300;
-		y = 300;
+		x = 200;
+		y = 200;
 		angle = 150;
 		speed = 5;
 		colors = color(0, 0, 0);
-		size = 7;
+		//size = 7;
 	}
 	public void move()
 	{
@@ -69,8 +79,8 @@ class OddballParticle implements Particle
 	}
 	public void show()
 	{
-		fill(colors);
-		rect((float)x-3, (float)y-3, size, size);
+		fill(255, 255, 0);
+		rect((float)x-4, (float)y-4, 9, 9);
 	}
 }
 class JumboParticle extends NormalParticle
@@ -78,6 +88,17 @@ class JumboParticle extends NormalParticle
 	JumboParticle()
 	{
 		size = 10;
+		speed = 1;
+	}
+	public void move()
+	{
+		x = Math.cos(angle)*speed+x;
+		y = Math.sin(angle)*speed+y;
+	}
+	public void show()
+	{
+		fill(255, 255, 255);
+		ellipse((float)x, (float)y, 10, 10);
 	}
 }
 
