@@ -19,7 +19,10 @@ void draw()
 	{
 		galaxy[i].move();
 		galaxy[i].show();
+		galaxy[i].wrap();
 	}
+	fill(0, 0, 0);
+	ellipse(200, 200, 50, 50);
 }
 class NormalParticle implements Particle
 {
@@ -34,12 +37,13 @@ class NormalParticle implements Particle
 		speed = Math.random()*3+1;
 		//size = 5;
 	}
-	void wrap()
+	public void wrap()
 	{
-		if(x == 300 || x == 300 || y == 300 || y == 300)
+		if(x >= 400 || x <= 0 || y >= 400 || y <= 0)
 		{
 			x = 200;
 			y = 200;
+			angle = Math.random()*360;
 		}
 	}
 	public void move()
@@ -58,6 +62,7 @@ interface Particle
 {
 	public void move();
 	public void show();
+	public void wrap();
 }
 class OddballParticle implements Particle
 {
@@ -67,15 +72,24 @@ class OddballParticle implements Particle
 	{
 		x = 200;
 		y = 200;
-		angle = 150;
+		angle = Math.random()*360;
 		speed = 5;
 		colors = color(0, 0, 0);
 		//size = 7;
 	}
-	public void move()
+	public void wrap()
 	{
-		x = Math.cos(angle)*speed+x;
-		y = Math.sin(angle)*speed+y;
+		if(x >= 400 || x <= 0 || y >= 400 || y <= 0)
+		{
+			x = 200;
+			y = 200;
+			angle = Math.random()*360;
+		}
+	}
+	public void move() 
+	{
+		x = x + (Math.random()*angle+1); //HERE!!!!
+		y = y +(Math.random()*angle+1);
 	}
 	public void show()
 	{
@@ -87,13 +101,11 @@ class JumboParticle extends NormalParticle
 {
 	JumboParticle()
 	{
+		x = 200;
+		y = 200;
 		size = 10;
-		speed = 1;
-	}
-	public void move()
-	{
-		x = Math.cos(angle)*speed+x;
-		y = Math.sin(angle)*speed+y;
+		angle = Math.random()*360;
+		speed = 3;
 	}
 	public void show()
 	{
