@@ -1,9 +1,11 @@
 Particle[] galaxy;
+PImage b;
 
 void setup()
 {
 	background(0, 0, 0);
 	size(400, 400);
+	b = loadImage("earth_from_space1.jpg");
 	galaxy = new Particle[300];
 	for(int i = 2; i < galaxy.length; i++)
 	{
@@ -23,6 +25,11 @@ void draw()
 	}
 	fill(0, 0, 0);
 	ellipse(200, 200, 50, 50);
+	image(b, 176, 176, 50, 50);
+	noFill();
+	stroke(100);
+	arc(200, 200, 50, 50, 0, 360);
+	//ellipse(200, 200, 50, 50);
 }
 class NormalParticle implements Particle
 {
