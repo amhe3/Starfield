@@ -1,13 +1,13 @@
 Particle[] galaxy;
-PImage b;
+PImage b; //var for image
 
 void setup()
 {
 	background(0, 0, 0);
 	size(400, 400);
-	b = loadImage("earth_from_space1.jpg");
-	galaxy = new Particle[300];
-	for(int i = 2; i < galaxy.length; i++)
+	b = loadImage("earth_from_space1.jpg"); //image of Earth
+	galaxy = new Particle[300]; //make rooms
+	for(int i = 2; i < galaxy.length; i++) //make particles
 	{
 		galaxy[i] = new NormalParticle();
 	}
@@ -30,7 +30,7 @@ void draw()
 }
 class NormalParticle implements Particle
 {
-	int colors, size;
+	int colors;
 	double x, y, angle, speed;
 	NormalParticle()
 	{
@@ -39,7 +39,6 @@ class NormalParticle implements Particle
 		colors = color((int)(Math.random()*225), (int)(Math.random()*225), (int)(Math.random()*225));
 		angle = Math.random()*360;
 		speed = Math.random()*3+1;
-		//size = 5;
 	}
 	public void wrap()
 	{
@@ -70,7 +69,7 @@ interface Particle
 }
 class OddballParticle implements Particle
 {
-	int colors, size;
+	int colors;
 	double x, y, angle, speed;
 	OddballParticle()
 	{
@@ -79,7 +78,6 @@ class OddballParticle implements Particle
 		angle = Math.random()*3*Math.PI;
 		speed = Math.random()*11;
 		colors = color(0, 0, 0);
-		//size = 7;
 	}
 	public void wrap()
 	{
@@ -105,7 +103,7 @@ class JumboParticle extends NormalParticle
 {
 	JumboParticle()
 	{
-		size = 10;
+
 	}
 	public void show()
 	{
